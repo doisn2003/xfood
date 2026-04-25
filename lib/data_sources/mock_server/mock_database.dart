@@ -3,6 +3,7 @@ import 'package:xfood/features/shared/models/product_model.dart';
 import 'package:xfood/features/shared/models/shop_model.dart';
 import 'package:xfood/features/shared/models/user_model.dart';
 import 'package:xfood/features/shared/models/voucher_model.dart';
+import 'package:xfood/features/shared/models/category_model.dart';
 
 /// Singleton In-Memory Database to share state across User/Shop app
 class MockDatabase {
@@ -18,6 +19,13 @@ class MockDatabase {
     rewardPoints: 1500,
   );
 
+  // --- MOCK CATEGORIES ---
+  final List<CategoryModel> categories = [
+    const CategoryModel(id: 'c_1', name: 'Bún/Phở', iconUrl: 'ramen_dining'),
+    const CategoryModel(id: 'c_2', name: 'Ăn vặt', iconUrl: 'fastfood'),
+    const CategoryModel(id: 'c_3', name: 'Đồ uống', iconUrl: 'local_drink'),
+  ];
+
   // --- MOCK SHOPS ---
   final List<ShopModel> shops = [
     const ShopModel(
@@ -29,6 +37,7 @@ class MockDatabase {
       rating: 4.8,
       baseShippingFee: 15000,
       feePerKm: 5000,
+      categories: ['c_1'],
     ),
     const ShopModel(
       id: 's_2',
@@ -39,6 +48,7 @@ class MockDatabase {
       rating: 4.5,
       baseShippingFee: 10000,
       feePerKm: 3000,
+      categories: ['c_3'],
     ),
   ];
 
@@ -47,6 +57,7 @@ class MockDatabase {
     const ProductModel(
       id: 'p_1',
       shopId: 's_1',
+      categoryId: 'c_1',
       name: 'Mì Cay Hải Sản Cấp 7',
       description: 'Cay xé lưỡi, tỉnh ngủ ngay lập tức.',
       imageUrl: 'assets/images/mock/product_1.png',
@@ -55,6 +66,7 @@ class MockDatabase {
     const ProductModel(
       id: 'p_2',
       shopId: 's_2',
+      categoryId: 'c_3',
       name: 'Trà Sữa Trân Châu Đường Đen',
       description: 'Ngọt ngào giữa đêm khuya.',
       imageUrl: 'assets/images/mock/product_2.png',
