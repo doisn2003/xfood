@@ -23,10 +23,11 @@ class CuteTextField extends StatelessWidget {
       controller: controller,
       obscureText: obscureText,
       keyboardType: keyboardType,
+      style: const TextStyle(fontWeight: FontWeight.w500),
       decoration: InputDecoration(
         hintText: hintText,
         prefixIcon: prefixIcon != null 
-            ? Icon(prefixIcon, color: AppColors.textSecondary)
+            ? Icon(prefixIcon, color: AppColors.textSecondary, size: 24)
             : null,
       ),
     );

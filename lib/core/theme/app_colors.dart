@@ -1,26 +1,32 @@
 import 'package:flutter/material.dart';
 
 class AppColors {
-  // Primary brand colors - Vibrant & Cute for late-night food
-  static const Color primary = Color(0xFFFF5A5F); // Vibrant Coral Red (Hunger inducing)
-  static const Color secondary = Color(0xFFFFB400); // Warm Yellow/Orange (Neon style)
-  static const Color accent = Color(0xFF00A699); // Teal for contrast (Success, Fresh)
+  // Primary brand colors - Neon Mochi / Electric Marshmallow
+  static const Color primary = Color(0xFFFF85FF); // Bubblegum Pink / Neon Pink
+  static const Color primaryContainer = Color(0xFFE972EA);
+  static const Color secondary = Color(0xFFEDE59D); // Pastel Yellow
+  static const Color tertiary = Color(0xFF8FF5FF); // Cyan / Neon Spark
 
-  // Backgrounds
-  static const Color backgroundLight = Color(0xFFF7F7F9);
+  // Backgrounds - Deep plum midnight
+  static const Color backgroundLight = Color(0xFFFFF8F9); // Inverse Surface
   static const Color surfaceLight = Colors.white;
   
-  static const Color backgroundDark = Color(0xFF121212); // Midnight dark mode
-  static const Color surfaceDark = Color(0xFF1E1E1E);
+  static const Color backgroundDark = Color(0xFF20021A); // Deep plum midnight
+  static const Color surfaceDark = Color(0xFF20021A);
+  
+  // Tonal Layering
+  static const Color surfaceContainerLow = Color(0xFF280521);
+  static const Color surfaceContainerHigh = Color(0xFF3A0E30);
+  static const Color surfaceContainerHighest = Color(0xFF421338);
 
   // Text colors
-  static const Color textPrimary = Color(0xFF222222);
-  static const Color textSecondary = Color(0xFF717171);
-  static const Color textLight = Colors.white;
+  static const Color textPrimary = Color(0xFFFFDCF0); // Light pinkish-white
+  static const Color textSecondary = Color(0xFFCF9CBC); // Muted pink
+  static const Color textDark = Color(0xFF20021A);
 
   // Status colors
-  static const Color error = Color(0xFFE53935);
-  static const Color success = Color(0xFF4CAF50);
-  static const Color warning = Color(0xFFFFC107);
-  static const Color info = Color(0xFF2196F3);
+  static const Color error = Color(0xFFFF6E84);
+  static const Color success = Color(0xFF4CAF50); // Not specified in palette, keep standard
+  static const Color warning = Color(0xFFEDE59D);
+  static const Color info = Color(0xFF8FF5FF);
 }

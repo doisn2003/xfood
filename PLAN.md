@@ -93,7 +93,7 @@ lib/
 
 ## 3. Lộ trình triển khai (Implementation Phases)
 
-Để đảm bảo tiến độ và ra mắt được bản Demo ấn tượng nhất, dự án chia làm 4 Phase.
+Để đảm bảo tiến độ và ra mắt được bản Demo ấn tượng nhất, dự án chia làm 5 Phase.
 
 ### Phase 1: Foundation & Design System (Thiết lập nền tảng)
 *Tập trung xây dựng bộ móng kiến trúc vững chắc và hệ thống UI chuẩn.*
@@ -102,21 +102,31 @@ lib/
 - Định nghĩa toàn bộ **Data Models** (`ShopModel`, `ProductModel`, `OrderModel`).
 - Xây dựng **Mock Engine & Auto-Assets**: Hệ thống giả lập Database In-memory. Đồng thời, AI sẽ kích hoạt quy trình tự động sinh toàn bộ hình ảnh đồ ăn (AI Image Generation) và tự động đóng gói vào thư mục `assets`.
 
-### Phase 2: Role Người Mua - Khám phá & Trải nghiệm Gamification
+### Phase 2: App Layout & Core Navigation (Xây dựng Bố cục & Điều hướng)
+*Thiết lập khung sườn Navigation và nâng cấp cấu trúc Dữ liệu để phục vụ việc mở rộng.*
+- Nâng cấp **Data Models**: Bổ sung thêm field Category (Danh mục) vào dữ liệu món ăn/quán ăn và cập nhật Mock Database.
+- Xây dựng **Main Bottom Navigation Bar** với 4 Tabs chính:
+  - **Home**: Trang chủ trưng bày đồ ăn đêm, danh mục nổi bật.
+  - **Ưu Đãi**: Hiển thị danh sách Voucher và tích hợp Mini-game "Vòng quay may mắn".
+  - **Đơn Hàng**: Nơi quản lý danh sách đơn hàng và xem Tracking Map.
+  - **Tôi**: Trang cá nhân, thiết lập Affiliates, và có logic Render giao diện động tùy theo Role (User / Shop).
+- Khởi tạo các Route cơ bản bằng `go_router` cho 4 tab này.
+
+### Phase 3: Role Người Mua - Khám phá & Trải nghiệm Gamification
 *Tạo ra trải nghiệm đặt hàng "mượt như lụa" kết hợp Gamification để giữ chân khách thức khuya.*
 - Xây dựng Mock Data cho danh sách quán, menu hấp dẫn (hình ảnh/video món ăn chất lượng cao).
-- **UI Trang chủ (Home):** Banner slider động, tích hợp Mini-game "Vòng quay may mắn (Midnight Roulette)" và hiển thị thanh tiến trình "Thử thách Cú Đêm".
+- **UI Trang chủ (Home):** Banner slider động, hiển thị thanh tiến trình "Thử thách Cú Đêm".
 - **UI Chi tiết quán:** Hiển thị Menu (hỗ trợ dạng video story), UI chia sẻ "Group Order".
 - **UI Giỏ hàng & Thanh toán:** Flow chọn voucher, chọn tùy chọn "Đi nhẹ nói khẽ", tính tổng tiền và thao tác checkout. Tích hợp màn hình Loading mô phỏng.
 
-### Phase 3: Trải nghiệm WOW - Tracking Map & Tương tác xã hội
+### Phase 4: Trải nghiệm WOW - Tracking Map & Tương tác xã hội
 *Điểm nhấn để thuyết phục nhà đầu tư (Pitching Killer Feature).*
-- Tích hợp Bản đồ (Google Maps/Mapbox).
+- Tích hợp Bản đồ (Google Maps/Mapbox) vào tab Đơn Hàng.
 - Xây dựng luồng **Live Tracking**: Vẽ lộ trình tuyến đường, giả lập marker shipper di chuyển mượt mà trên bản đồ.
 - Phát triển UI "Share Bill Flexing" đẹp mắt sau khi đặt hàng thành công.
 - Áp dụng các hiệu ứng animation (Lottie, Rive) cho mọi tương tác: Thành công, Rỗng (Empty State), pháo hoa khi hoàn thành "Thử thách Cú Đêm".
 
-### Phase 4: Role Chủ Quán & Đóng gói
+### Phase 5: Role Chủ Quán & Đóng gói
 *Hoàn thiện bộ công cụ quản lý và Marketing cho Shop, Polish toàn bộ dự án.*
 - **UI Dashboard Shop:** Thống kê doanh thu, biểu đồ "Insight khung giờ", bản đồ nhiệt (Heatmap) giả lập.
 - **UI Quản lý đơn:** Nhận đơn realtime, UI bật/tắt "Chế độ Quá tải".
