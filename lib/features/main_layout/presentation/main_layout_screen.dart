@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:xfood/core/theme/app_colors.dart';
 import 'package:xfood/features/cart/presentation/bloc/cart_cubit.dart';
+import 'package:xfood/features/orders/presentation/bloc/orders_cubit.dart';
 
 class MainLayoutScreen extends StatelessWidget {
   final StatefulNavigationShell navigationShell;
@@ -63,9 +64,31 @@ class MainLayoutScreen extends StatelessWidget {
                   activeIcon: Icon(CupertinoIcons.ticket_fill),
                   label: 'Ưu Đãi',
                 ),
-                const BottomNavigationBarItem(
-                  icon: Icon(CupertinoIcons.doc_text),
-                  activeIcon: Icon(CupertinoIcons.doc_text_fill),
+                BottomNavigationBarItem(
+                  icon: BlocBuilder<OrdersCubit, OrdersState>(
+                    builder: (context, state) {
+                      final count = state.activeOrders.length;
+                      return Badge(
+                        label: Text('$count'),
+                        isLabelVisible: count > 0,
+                        backgroundColor: AppColors.tertiary,
+                        textColor: AppColors.textDark,
+                        child: const Icon(CupertinoIcons.doc_text),
+                      );
+                    },
+                  ),
+                  activeIcon: BlocBuilder<OrdersCubit, OrdersState>(
+                    builder: (context, state) {
+                      final count = state.activeOrders.length;
+                      return Badge(
+                        label: Text('$count'),
+                        isLabelVisible: count > 0,
+                        backgroundColor: AppColors.tertiary,
+                        textColor: AppColors.textDark,
+                        child: const Icon(CupertinoIcons.doc_text_fill),
+                      );
+                    },
+                  ),
                   label: 'Đơn Hàng',
                 ),
                 BottomNavigationBarItem(

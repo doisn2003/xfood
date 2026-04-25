@@ -27,7 +27,7 @@ class MockDatabase {
     const CategoryModel(id: 'c_3', name: 'Đồ uống', iconUrl: '🧋'),
   ];
 
-  // --- MOCK SHOPS ---
+  // --- MOCK SHOPS (with real Hanoi coordinates) ---
   final List<ShopModel> shops = [
     const ShopModel(
       id: 's_1',
@@ -38,6 +38,10 @@ class MockDatabase {
       rating: 4.8,
       baseShippingFee: 15000,
       feePerKm: 5000,
+      latitude: 21.0285,
+      longitude: 105.7823,
+      description: 'Chuyên các loại mì cay Hàn Quốc chuẩn vị 7 cấp độ, phục vụ xuyên đêm.',
+      openingHours: '18:00 - 04:00',
     ),
     const ShopModel(
       id: 's_2',
@@ -48,6 +52,10 @@ class MockDatabase {
       rating: 4.5,
       baseShippingFee: 10000,
       feePerKm: 3000,
+      latitude: 21.0228,
+      longitude: 105.8135,
+      description: 'Trà sữa đậm vị trà, topping đa dạng. Lý tưởng cho các tín đồ thức khuya cày phim.',
+      openingHours: '20:00 - 05:00',
     ),
     const ShopModel(
       id: 's_3',
@@ -58,6 +66,10 @@ class MockDatabase {
       rating: 4.9,
       baseShippingFee: 20000,
       feePerKm: 5000,
+      latitude: 21.0128,
+      longitude: 105.8120,
+      description: 'Phở gà ta chuẩn vị Bắc, nước dùng thanh ngọt nấu từ xương hầm 24h.',
+      openingHours: '19:00 - 03:00',
     ),
     const ShopModel(
       id: 's_4',
@@ -68,6 +80,10 @@ class MockDatabase {
       rating: 5.0,
       baseShippingFee: 0,
       feePerKm: 4000,
+      latitude: 20.9970,
+      longitude: 105.7960,
+      description: 'Khô gà lá chanh, khô heo cháy tỏi siêu ngon nhức nách. Nhắm rượu bia bao cuốn.',
+      openingHours: '10:00 - 02:00',
     ),
     const ShopModel(
       id: 's_5',
@@ -78,6 +94,10 @@ class MockDatabase {
       rating: 4.7,
       baseShippingFee: 15000,
       feePerKm: 3000,
+      latitude: 21.0170,
+      longitude: 105.8290,
+      description: 'Sinh tố trái cây tươi nguyên chất 100%, không pha siro, tốt cho sức khỏe.',
+      openingHours: '17:00 - 02:00',
     ),
   ];
 
@@ -205,5 +225,18 @@ class MockDatabase {
   // Helper function to simulate adding an order
   void placeOrder(OrderModel order) {
     orders.add(order);
+  }
+
+  // Helper: Remove a completed order
+  void removeOrder(String orderId) {
+    orders.removeWhere((o) => o.id == orderId);
+  }
+
+  // Helper: Update order status
+  void updateOrderStatus(String orderId, OrderStatus status) {
+    final index = orders.indexWhere((o) => o.id == orderId);
+    if (index >= 0) {
+      orders[index] = orders[index].copyWith(status: status);
+    }
   }
 }

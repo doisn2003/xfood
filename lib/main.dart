@@ -11,6 +11,7 @@ import 'package:xfood/features/shared/repositories/voucher_repository.dart';
 import 'package:xfood/features/cart/presentation/bloc/cart_cubit.dart';
 import 'package:xfood/features/cart/presentation/bloc/checkout_cubit.dart';
 import 'package:xfood/features/offers/presentation/bloc/offers_cubit.dart';
+import 'package:xfood/features/orders/presentation/bloc/orders_cubit.dart';
 import 'package:xfood/features/shop_details/presentation/bloc/shop_detail_cubit.dart';
 import 'package:xfood/features/user_home/presentation/bloc/home_cubit.dart';
 
@@ -62,6 +63,12 @@ class XfoodApp extends StatelessWidget {
             create: (context) => CheckoutCubit(
               orderRepository: context.read<OrderRepository>(),
               voucherRepository: context.read<VoucherRepository>(),
+            ),
+          ),
+          BlocProvider(
+            create: (context) => OrdersCubit(
+              orderRepository: context.read<OrderRepository>(),
+              shopRepository: context.read<ShopRepository>(),
             ),
           ),
         ],

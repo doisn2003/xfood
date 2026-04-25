@@ -129,7 +129,7 @@ lib/
 - Các món ăn ở Tab Ưu đãi được mock giá: Từ data gốc --> tăng lên 10% --> gạch giá tăng --> để giá gốc.
 
 
-### Phase 5: Trải nghiệm WOW - Tracking Map & Tương tác xã hội
+### Phase 5: Trải nghiệm WOW - Tracking Map & Quản lý đơn hàng.
 *Điểm nhấn để thuyết phục nhà đầu tư (Pitching Killer Feature).*
 - Tích hợp Bản đồ (Google Maps/Mapbox) vào tab Đơn Hàng.
 - Xây dựng luồng **Live Tracking**: Vẽ lộ trình tuyến đường, giả lập marker shipper di chuyển mượt mà trên bản đồ.

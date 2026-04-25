@@ -7,6 +7,7 @@ import 'package:xfood/core/theme/app_typography.dart';
 import 'package:xfood/core/widgets/primary_button.dart';
 import 'package:xfood/features/cart/presentation/bloc/cart_cubit.dart';
 import 'package:xfood/features/cart/presentation/bloc/checkout_cubit.dart';
+import 'package:xfood/features/orders/presentation/bloc/orders_cubit.dart';
 import 'package:xfood/features/cart/presentation/widgets/voucher_picker_sheet.dart';
 
 /// Danh sách quận Hà Nội (Mock — không cần internet)
@@ -195,6 +196,8 @@ class _CartScreenState extends State<CartScreen> {
     return BlocListener<CheckoutCubit, CheckoutState>(
       listener: (context, checkoutState) {
         if (checkoutState is CheckoutSuccess) {
+          // Cập nhật ngay dữ liệu cho tab Đơn hàng để thanh tracking xuất hiện ngay lập tức
+          context.read<OrdersCubit>().loadData();
           _showSuccessDialog(context, checkoutState);
         } else if (checkoutState is CheckoutError) {
           ScaffoldMessenger.of(context).showSnackBar(
@@ -508,7 +511,7 @@ class _CartScreenState extends State<CartScreen> {
                                   ),
                                   const SizedBox(height: 4),
                                   Text(
-                                    'Tài xế sẽ không gọi điện hay bấm chuông',
+                                    'Tài xế sẽ không bấm chuông',
                                     style: AppTypography.caption,
                                   ),
                                 ],
@@ -677,13 +680,24 @@ class _CartScreenState extends State<CartScreen> {
               child: PrimaryButton(
                 text: 'Về trang chủ',
                 onPressed: () {
-                  Navigator.of(context).pop(); // close dialog
-                  // Clear cart and reset checkout
+                  // 1. Đóng Dialog (Sử dụng rootNavigator: true để đảm bảo đóng đúng Dialog)
+                  Navigator.of(context, rootNavigator: true).pop();
+
+                  // 2. Dọn dẹp state & Cập nhật danh sách đơn hàng mới
+                  final ordersCubit = this.context.read<OrdersCubit>();
                   this.context.read<CartCubit>().clearCart();
                   this.context.read<CheckoutCubit>().reset();
                   _addressController.clear();
-                  // Navigate to home
-                  this.context.go('/home');
+                  
+                  // Đảm bảo dữ liệu đơn hàng được load lại lần nữa để chắc chắn
+                  ordersCubit.loadData();
+
+                  // 3. Điều hướng về home (Dùng microtask để đảm bảo Dialog đã đóng hẳn)
+                  Future.microtask(() {
+                    if (this.context.mounted) {
+                      this.context.go('/home');
+                    }
+                  });
                 },
               ),
             ),
