@@ -251,6 +251,10 @@ The system is considered correct only if:
 * rewriting business logic
 
 ---
+### Rule 16: SafeArea
+
+* All UI screens must be wrapped in SafeArea to properly adapt to the device’s navigation bar and status bar.
+---
 
 ### Optional Advanced Rules (For Scaling)
 
