@@ -22,6 +22,7 @@ class MockDatabase {
   // --- MOCK CATEGORIES ---
   final List<CategoryModel> categories = [
     const CategoryModel(id: 'c_1', name: 'Bún/Phở', iconUrl: '🍜'),
+    const CategoryModel(id: 'c_4', name: 'Mỳ', iconUrl: '🍝'),
     const CategoryModel(id: 'c_2', name: 'Ăn vặt', iconUrl: '🍟'),
     const CategoryModel(id: 'c_3', name: 'Đồ uống', iconUrl: '🧋'),
   ];
@@ -37,7 +38,6 @@ class MockDatabase {
       rating: 4.8,
       baseShippingFee: 15000,
       feePerKm: 5000,
-      categories: ['c_1'],
     ),
     const ShopModel(
       id: 's_2',
@@ -48,7 +48,36 @@ class MockDatabase {
       rating: 4.5,
       baseShippingFee: 10000,
       feePerKm: 3000,
-      categories: ['c_3'],
+    ),
+    const ShopModel(
+      id: 's_3',
+      name: 'Phở Gà Chặt Khuya',
+      address: '789 Láng Hạ',
+      imageUrl: 'assets/images/mock/banner_pho_ga.png',
+      isOpen: true,
+      rating: 4.9,
+      baseShippingFee: 20000,
+      feePerKm: 5000,
+    ),
+    const ShopModel(
+      id: 's_4',
+      name: 'Khô Gà Mixi',
+      address: 'Độ Phùng Khoang',
+      imageUrl: 'assets/images/mock/banner_kho_ga.png',
+      isOpen: true,
+      rating: 5.0,
+      baseShippingFee: 0,
+      feePerKm: 4000,
+    ),
+    const ShopModel(
+      id: 's_5',
+      name: 'Sinh Tố Cú Đêm',
+      address: '22 Xã Đàn',
+      imageUrl: 'assets/images/mock/banner_sinh_to.png',
+      isOpen: true,
+      rating: 4.7,
+      baseShippingFee: 15000,
+      feePerKm: 3000,
     ),
   ];
 
@@ -57,7 +86,7 @@ class MockDatabase {
     const ProductModel(
       id: 'p_1',
       shopId: 's_1',
-      categoryId: 'c_1',
+      categoryId: 'c_4',
       name: 'Mì Cay Hải Sản Cấp 7',
       description: 'Cay xé lưỡi, tỉnh ngủ ngay lập tức.',
       imageUrl: 'assets/images/mock/product_1.png',
@@ -71,6 +100,33 @@ class MockDatabase {
       description: 'Ngọt ngào giữa đêm khuya.',
       imageUrl: 'assets/images/mock/product_2.png',
       price: 35000,
+    ),
+    const ProductModel(
+      id: 'p_3',
+      shopId: 's_3',
+      categoryId: 'c_1',
+      name: 'Phở Gà Đùi Chặt Đặc Biệt',
+      description: 'Nước dùng thanh ngọt, thịt gà dai giòn, xua tan cái lạnh đêm khuya.',
+      imageUrl: 'assets/images/mock/banner_pho_ga.png',
+      price: 65000,
+    ),
+    const ProductModel(
+      id: 'p_4',
+      shopId: 's_4',
+      categoryId: 'c_2',
+      name: 'Khô Gà Lá Chanh 500g',
+      description: 'Giòn rụm, cay nhẹ, đồ nhắm chân ái cho game thủ cày rank đêm.',
+      imageUrl: 'assets/images/mock/banner_kho_ga.png',
+      price: 120000,
+    ),
+    const ProductModel(
+      id: 'p_5',
+      shopId: 's_5',
+      categoryId: 'c_3',
+      name: 'Sinh Tố Bơ Xoài Dầm',
+      description: 'Vitamin tươi mát, chua ngọt hòa quyện, giải nhiệt siêu tốc.',
+      imageUrl: 'assets/images/mock/banner_sinh_to.png',
+      price: 45000,
     ),
   ];
 

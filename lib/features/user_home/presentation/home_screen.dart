@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -87,7 +88,7 @@ class HomeScreen extends StatelessWidget {
                                 ),
                                 const SizedBox(height: 8),
                                 Text(
-                                  'Còn 3 đơn nữa để nhận Voucher 50%!',
+                                  'Còn 1 đơn nữa để nhận Voucher 50%!',
                                   style: AppTypography.caption,
                                 ),
                               ],
@@ -98,59 +99,8 @@ class HomeScreen extends StatelessWidget {
                     ),
                   ),
 
-                  // 2. Banner Slider Placeholder
-                  SliverToBoxAdapter(
-                    child: Container(
-                      height: 160,
-                      margin: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(32),
-                        gradient: const LinearGradient(
-                          colors: [AppColors.primary, AppColors.primaryContainer],
-                          begin: Alignment.topLeft,
-                          end: Alignment.bottomRight,
-                        ),
-                      ),
-                      child: Stack(
-                        children: [
-                          Positioned(
-                            right: -20,
-                            bottom: -20,
-                            child: Icon(
-                              Icons.local_fire_department,
-                              size: 150,
-                              color: Colors.white.withValues(alpha: 0.2),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(24.0),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(
-                                  'Midnight\nRoulette',
-                                  style: AppTypography.h2.copyWith(color: AppColors.textDark, height: 1.1),
-                                ),
-                                const SizedBox(height: 8),
-                                Container(
-                                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-                                  decoration: BoxDecoration(
-                                    color: AppColors.textDark,
-                                    borderRadius: BorderRadius.circular(999),
-                                  ),
-                                  child: Text(
-                                    'Quay Ngay',
-                                    style: AppTypography.caption.copyWith(color: AppColors.textPrimary, fontWeight: FontWeight.bold),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
+                  // 2. Banner Slider
+                  const _BannerSlider(),
 
                   // 3. Categories Horizontal Scroll
                   SliverToBoxAdapter(
@@ -159,48 +109,80 @@ class HomeScreen extends StatelessWidget {
                       children: [
                         const Padding(
                           padding: EdgeInsets.symmetric(horizontal: 24, vertical: 8),
-                          child: Text('Đang thèm gì?', style: AppTypography.h3),
+                          child: Text('Bạn đang thèm gì?', style: AppTypography.h3),
                         ),
                         SizedBox(
                           height: 50,
                           child: ListView.separated(
                             padding: const EdgeInsets.symmetric(horizontal: 24),
                             scrollDirection: Axis.horizontal,
-                            itemCount: state.categories.length,
+                            itemCount: state.categories.length + 1,
                             separatorBuilder: (context, index) => const SizedBox(width: 12),
                             itemBuilder: (context, index) {
-                              final cat = state.categories[index];
-                              // Chỉ highlight cái đầu tiên cho giống UI design
-                              final isSelected = index == 0;
-                              return Container(
-                                padding: const EdgeInsets.symmetric(horizontal: 24),
-                                decoration: BoxDecoration(
-                                  color: isSelected ? AppColors.tertiary : AppColors.surfaceContainerHigh,
-                                  borderRadius: BorderRadius.circular(999),
-                                  boxShadow: isSelected ? [
-                                    BoxShadow(
-                                      color: AppColors.tertiary.withValues(alpha: 0.3),
-                                      blurRadius: 15,
-                                      offset: const Offset(0, 4),
-                                    )
-                                  ] : [],
-                                ),
-                                alignment: Alignment.center,
-                                child: Row(
-                                  children: [
-                                    Text(
-                                      cat.iconUrl,
-                                      style: const TextStyle(fontSize: 18),
+                              if (index == 0) {
+                                final isSelected = state.selectedCategoryId == null;
+                                return GestureDetector(
+                                  onTap: () => context.read<HomeCubit>().selectCategory(null),
+                                  child: Container(
+                                    padding: const EdgeInsets.symmetric(horizontal: 24),
+                                    decoration: BoxDecoration(
+                                      color: isSelected ? AppColors.tertiary : AppColors.surfaceContainerHigh,
+                                      borderRadius: BorderRadius.circular(999),
+                                      boxShadow: isSelected ? [
+                                        BoxShadow(
+                                          color: AppColors.tertiary.withValues(alpha: 0.3),
+                                          blurRadius: 15,
+                                          offset: const Offset(0, 4),
+                                        )
+                                      ] : [],
                                     ),
-                                    const SizedBox(width: 8),
-                                    Text(
-                                      cat.name,
+                                    alignment: Alignment.center,
+                                    child: Text(
+                                      '🔥 Tất cả',
                                       style: AppTypography.body.copyWith(
                                         color: isSelected ? AppColors.textDark : AppColors.textPrimary,
                                         fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
                                       ),
                                     ),
-                                  ],
+                                  ),
+                                );
+                              }
+                              final cat = state.categories[index - 1];
+                              final isSelected = state.selectedCategoryId == cat.id;
+                              return GestureDetector(
+                                onTap: () {
+                                  context.read<HomeCubit>().selectCategory(cat.id);
+                                },
+                                child: Container(
+                                  padding: const EdgeInsets.symmetric(horizontal: 24),
+                                  decoration: BoxDecoration(
+                                    color: isSelected ? AppColors.tertiary : AppColors.surfaceContainerHigh,
+                                    borderRadius: BorderRadius.circular(999),
+                                    boxShadow: isSelected ? [
+                                      BoxShadow(
+                                        color: AppColors.tertiary.withValues(alpha: 0.3),
+                                        blurRadius: 15,
+                                        offset: const Offset(0, 4),
+                                      )
+                                    ] : [],
+                                  ),
+                                  alignment: Alignment.center,
+                                  child: Row(
+                                    children: [
+                                      Text(
+                                        cat.iconUrl,
+                                        style: const TextStyle(fontSize: 18),
+                                      ),
+                                      const SizedBox(width: 8),
+                                      Text(
+                                        cat.name,
+                                        style: AppTypography.body.copyWith(
+                                          color: isSelected ? AppColors.textDark : AppColors.textPrimary,
+                                          fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               );
                             },
@@ -214,15 +196,37 @@ class HomeScreen extends StatelessWidget {
                   SliverPadding(
                     padding: const EdgeInsets.fromLTRB(24, 32, 24, 24),
                     sliver: SliverToBoxAdapter(
-                      child: Text('Late Night Heroes', style: AppTypography.h2),
+                      child: Text('Các Quán Nổi Bật', style: AppTypography.h3),
                     ),
                   ),
-                  SliverPadding(
-                    padding: const EdgeInsets.symmetric(horizontal: 24),
-                    sliver: SliverList(
-                      delegate: SliverChildBuilderDelegate(
-                        (context, index) {
-                          final shop = state.popularShops[index];
+                  if (state.popularShops.isEmpty)
+                    const SliverFillRemaining(
+                      hasScrollBody: false,
+                      child: Center(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text('😴', style: TextStyle(fontSize: 64)),
+                            SizedBox(height: 16),
+                            Text(
+                              'Hết món này rồi Cú ơi!',
+                              style: AppTypography.subtitle,
+                            ),
+                            Text(
+                              'Thử tìm danh mục khác nhé',
+                              style: AppTypography.bodySecondary,
+                            ),
+                          ],
+                        ),
+                      ),
+                    )
+                  else
+                    SliverPadding(
+                      padding: const EdgeInsets.symmetric(horizontal: 24),
+                      sliver: SliverList(
+                        delegate: SliverChildBuilderDelegate(
+                          (context, index) {
+                            final shop = state.popularShops[index];
                           return GestureDetector(
                             onTap: () {
                               context.go('/home/shop_details/${shop.id}');
@@ -293,6 +297,126 @@ class HomeScreen extends StatelessWidget {
               );
             }
             return const SizedBox.shrink();
+          },
+        ),
+      ),
+    );
+  }
+}
+
+class _BannerSlider extends StatefulWidget {
+  const _BannerSlider();
+
+  @override
+  State<_BannerSlider> createState() => _BannerSliderState();
+}
+
+class _BannerSliderState extends State<_BannerSlider> {
+  late PageController _pageController;
+  late Timer _timer;
+  int _currentPage = 0;
+
+  final List<Map<String, String>> banners = [
+    {
+      'image': 'assets/images/mock/banner_pho_ga.png',
+      'shopId': 's_3',
+      'title': 'Flash Sale: Phở Gà',
+    },
+    {
+      'image': 'assets/images/mock/banner_kho_ga.png',
+      'shopId': 's_4',
+      'title': 'Flash Sale: Khô Gà Mixi',
+    },
+    {
+      'image': 'assets/images/mock/banner_sinh_to.png',
+      'shopId': 's_5',
+      'title': 'Flash Sale: Sinh Tố',
+    },
+  ];
+
+  @override
+  void initState() {
+    super.initState();
+    _pageController = PageController(initialPage: 0);
+    _timer = Timer.periodic(const Duration(seconds: 5), (Timer timer) {
+      if (_currentPage < banners.length - 1) {
+        _currentPage++;
+      } else {
+        _currentPage = 0;
+      }
+      if (_pageController.hasClients) {
+        _pageController.animateToPage(
+          _currentPage,
+          duration: const Duration(milliseconds: 500),
+          curve: Curves.easeInOut,
+        );
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    _timer.cancel();
+    _pageController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return SliverToBoxAdapter(
+      child: Container(
+        height: 180,
+        margin: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+        child: PageView.builder(
+          controller: _pageController,
+          itemCount: banners.length,
+          onPageChanged: (int page) {
+            setState(() {
+              _currentPage = page;
+            });
+          },
+          itemBuilder: (context, index) {
+            final banner = banners[index];
+            return GestureDetector(
+              onTap: () {
+                context.go('/home/shop_details/${banner['shopId']}');
+              },
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(32),
+                  image: DecorationImage(
+                    image: AssetImage(banner['image']!),
+                    fit: BoxFit.cover,
+                  ),
+                  boxShadow: [
+                    BoxShadow(
+                      color: AppColors.primary.withValues(alpha: 0.1),
+                      blurRadius: 15,
+                      offset: const Offset(0, 8),
+                    )
+                  ]
+                ),
+                child: Stack(
+                  children: [
+                    // Gradient overlay to ensure text is readable
+                    Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(32),
+                        gradient: LinearGradient(
+                          colors: [
+                            Colors.black.withValues(alpha: 0.8),
+                            Colors.transparent,
+                          ],
+                          begin: Alignment.bottomLeft,
+                          end: Alignment.topRight,
+                        ),
+                      ),
+                    ),
+
+                  ],
+                ),
+              ),
+            );
           },
         ),
       ),

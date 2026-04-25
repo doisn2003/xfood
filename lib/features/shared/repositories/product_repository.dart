@@ -7,4 +7,9 @@ class ProductRepository {
     await Future.delayed(const Duration(milliseconds: Env.mockDelayMs));
     return MockDatabase.instance.products.where((p) => p.shopId == shopId).toList();
   }
+
+  Future<List<ProductModel>> getAllProducts() async {
+    await Future.delayed(const Duration(milliseconds: Env.mockDelayMs));
+    return MockDatabase.instance.products;
+  }
 }

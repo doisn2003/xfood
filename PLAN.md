@@ -119,14 +119,24 @@ lib/
 - **UI Chi tiết quán:** Hiển thị Menu (hỗ trợ dạng video story), UI chia sẻ "Group Order".
 - **UI Giỏ hàng & Thanh toán:** Flow chọn voucher, chọn tùy chọn "Đi nhẹ nói khẽ", tính tổng tiền và thao tác checkout. Tích hợp màn hình Loading mô phỏng.
 
-### Phase 4: Trải nghiệm WOW - Tracking Map & Tương tác xã hội
+### Phase 4: Tab Ưu Đãi.
+*Tab Ưu Đãi là nơi hiển thị danh sách Voucher, Danh sách các Production và tích hợp Mini-game "Vòng quay may mắn".
+*Lập trình màn hình hiển thị chi tiết 1 sản phẩm: Thông tin về shop + model của món ăn đó. Sau đó mô phỏng thao tác chọn món + tăng giảm số lượng --> thêm vào giỏ hàng. Màn hình này sử dụng ở cả trang chủ và trang ưu đãi.
+- 2 ô đặt trên cùng và cùng hàng: Voucher & Vòng quay:
+  - Voucher: Mock Voucher rồi hiển thị. Voucher chỉ có thể sử dụng 1 lần.
+  - Vòng quay may mắn: Mini-game quay vòng quay may mắn. Mock quà tặng là các voucher + xen kẽ "Chúc bạn may mắn lần sau".
+- Danh sách Production: Các món ăn và đồ uống từ data - Danh sách các widgets đồ ăn, 2 cột, cuộn dọc vô tận.
+- Các món ăn ở Tab Ưu đãi được mock giá: Từ data gốc --> tăng lên 10% --> gạch giá tăng --> để giá gốc.
+
+
+### Phase 5: Trải nghiệm WOW - Tracking Map & Tương tác xã hội
 *Điểm nhấn để thuyết phục nhà đầu tư (Pitching Killer Feature).*
 - Tích hợp Bản đồ (Google Maps/Mapbox) vào tab Đơn Hàng.
 - Xây dựng luồng **Live Tracking**: Vẽ lộ trình tuyến đường, giả lập marker shipper di chuyển mượt mà trên bản đồ.
 - Phát triển UI "Share Bill Flexing" đẹp mắt sau khi đặt hàng thành công.
 - Áp dụng các hiệu ứng animation (Lottie, Rive) cho mọi tương tác: Thành công, Rỗng (Empty State), pháo hoa khi hoàn thành "Thử thách Cú Đêm".
 
-### Phase 5: Role Chủ Quán & Đóng gói
+### Phase 6: Role Chủ Quán & Đóng gói
 *Hoàn thiện bộ công cụ quản lý và Marketing cho Shop, Polish toàn bộ dự án.*
 - **UI Dashboard Shop:** Thống kê doanh thu, biểu đồ "Insight khung giờ", bản đồ nhiệt (Heatmap) giả lập.
 - **UI Quản lý đơn:** Nhận đơn realtime, UI bật/tắt "Chế độ Quá tải".

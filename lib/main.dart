@@ -33,6 +33,7 @@ class XfoodApp extends StatelessWidget {
               userRepository: context.read<UserRepository>(),
               categoryRepository: context.read<CategoryRepository>(),
               shopRepository: context.read<ShopRepository>(),
+              productRepository: context.read<ProductRepository>(),
             )..loadHomeData(),
           ),
           BlocProvider(

@@ -9,8 +9,6 @@ class ShopModel extends Equatable {
   final double rating;
   final int baseShippingFee; // For self-delivery
   final int feePerKm;
-  final List<String> categories;
-
   const ShopModel({
     required this.id,
     required this.name,
@@ -20,9 +18,8 @@ class ShopModel extends Equatable {
     required this.rating,
     required this.baseShippingFee,
     required this.feePerKm,
-    this.categories = const [],
   });
 
   @override
-  List<Object?> get props => [id, name, address, imageUrl, isOpen, rating, baseShippingFee, feePerKm, categories];
+  List<Object?> get props => [id, name, address, imageUrl, isOpen, rating, baseShippingFee, feePerKm];
 }
