@@ -3,5 +3,5 @@ class Env {
   static const bool useMock = true;
   
   // Default network delay simulation for all mock data requests
-  static const int mockDelayMs = 800;
+  static const int mockDelayMs = 400;
 }

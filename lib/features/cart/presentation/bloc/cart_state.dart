@@ -19,6 +19,10 @@ class CartState extends Equatable {
     return items.fold(0, (total, item) => total + (item.product.price * item.quantity));
   }
 
+  int get totalItems {
+    return items.fold(0, (total, item) => total + item.quantity);
+  }
+
   int get shippingFee => 15000; // Phí giao hàng mặc định mock
 
   int get discount {

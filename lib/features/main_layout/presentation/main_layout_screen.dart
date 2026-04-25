@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:xfood/core/theme/app_colors.dart';
+import 'package:xfood/features/cart/presentation/bloc/cart_cubit.dart';
 
 class MainLayoutScreen extends StatelessWidget {
   final StatefulNavigationShell navigationShell;
@@ -50,28 +52,48 @@ class MainLayoutScreen extends StatelessWidget {
               showUnselectedLabels: true,
               selectedLabelStyle: const TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
               unselectedLabelStyle: const TextStyle(fontWeight: FontWeight.w500, fontSize: 12),
-              items: const [
-                BottomNavigationBarItem(
+              items: [
+                const BottomNavigationBarItem(
                   icon: Icon(CupertinoIcons.house),
                   activeIcon: Icon(CupertinoIcons.house_fill),
                   label: 'Home',
                 ),
-                BottomNavigationBarItem(
+                const BottomNavigationBarItem(
                   icon: Icon(CupertinoIcons.ticket),
                   activeIcon: Icon(CupertinoIcons.ticket_fill),
                   label: 'Ưu Đãi',
                 ),
-                BottomNavigationBarItem(
+                const BottomNavigationBarItem(
                   icon: Icon(CupertinoIcons.doc_text),
                   activeIcon: Icon(CupertinoIcons.doc_text_fill),
                   label: 'Đơn Hàng',
                 ),
                 BottomNavigationBarItem(
-                  icon: Icon(CupertinoIcons.cart),
-                  activeIcon: Icon(CupertinoIcons.cart_fill),
+                  icon: BlocBuilder<CartCubit, CartState>(
+                    builder: (context, state) {
+                      return Badge(
+                        label: Text('${state.totalItems}'),
+                        isLabelVisible: state.items.isNotEmpty,
+                        backgroundColor: AppColors.primary,
+                        textColor: AppColors.textDark,
+                        child: const Icon(CupertinoIcons.cart),
+                      );
+                    },
+                  ),
+                  activeIcon: BlocBuilder<CartCubit, CartState>(
+                    builder: (context, state) {
+                      return Badge(
+                        label: Text('${state.totalItems}'),
+                        isLabelVisible: state.items.isNotEmpty,
+                        backgroundColor: AppColors.primary,
+                        textColor: AppColors.textDark,
+                        child: const Icon(CupertinoIcons.cart_fill),
+                      );
+                    },
+                  ),
                   label: 'Giỏ Hàng',
                 ),
-                BottomNavigationBarItem(
+                const BottomNavigationBarItem(
                   icon: Icon(CupertinoIcons.person),
                   activeIcon: Icon(CupertinoIcons.person_solid),
                   label: 'Tôi',
