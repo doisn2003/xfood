@@ -136,87 +136,90 @@ class _ShopDetailScreenState extends State<ShopDetailScreen> {
                   delegate: SliverChildBuilderDelegate(
                     (context, index) {
                       final product = products[index];
-                      return Container(
-                        margin: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
-                        padding: const EdgeInsets.all(16),
-                        decoration: BoxDecoration(
-                          color: AppColors.surfaceContainerHigh,
-                          borderRadius: BorderRadius.circular(32),
-                        ),
-                        child: Row(
-                          children: [
-                            ClipRRect(
-                              borderRadius: BorderRadius.circular(24),
-                              child: Image.asset(
-                                product.imageUrl,
-                                width: 100,
-                                height: 100,
-                                fit: BoxFit.cover,
-                                errorBuilder: (_, __, ___) => Container(
+                      return GestureDetector(
+                        onTap: () => context.push('/product_detail/${product.id}'),
+                        child: Container(
+                          margin: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+                          padding: const EdgeInsets.all(16),
+                          decoration: BoxDecoration(
+                            color: AppColors.surfaceContainerHigh,
+                            borderRadius: BorderRadius.circular(32),
+                          ),
+                          child: Row(
+                            children: [
+                              ClipRRect(
+                                borderRadius: BorderRadius.circular(24),
+                                child: Image.asset(
+                                  product.imageUrl,
                                   width: 100,
                                   height: 100,
-                                  color: AppColors.surfaceContainerLow,
-                                  child: const Icon(Icons.fastfood, color: AppColors.textSecondary),
+                                  fit: BoxFit.cover,
+                                  errorBuilder: (_, __, ___) => Container(
+                                    width: 100,
+                                    height: 100,
+                                    color: AppColors.surfaceContainerLow,
+                                    child: const Icon(Icons.fastfood, color: AppColors.textSecondary),
+                                  ),
                                 ),
                               ),
-                            ),
-                            const SizedBox(width: 16),
-                            Expanded(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(product.name, style: AppTypography.subtitle, maxLines: 2, overflow: TextOverflow.ellipsis),
-                                  const SizedBox(height: 4),
-                                  Text(
-                                    product.description,
-                                    style: AppTypography.caption,
-                                    maxLines: 2,
-                                    overflow: TextOverflow.ellipsis,
-                                  ),
-                                  const SizedBox(height: 8),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Text(
-                                        '${product.price}đ',
-                                        style: AppTypography.subtitle.copyWith(color: AppColors.tertiary),
-                                      ),
-                                      // Nút [+] thêm vào giỏ hàng
-                                      GestureDetector(
-                                        onTap: () {
-                                          context.read<CartCubit>().addProduct(product);
-                                          ScaffoldMessenger.of(context).showSnackBar(
-                                            SnackBar(
-                                              content: Text('Đã thêm ${product.name} vào giỏ', style: const TextStyle(color: AppColors.textDark)),
-                                              backgroundColor: AppColors.primary,
-                                              behavior: SnackBarBehavior.floating,
-                                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(999)),
-                                              duration: const Duration(seconds: 1),
-                                            ),
-                                          );
-                                        },
-                                        child: Container(
-                                          padding: const EdgeInsets.all(8),
-                                          decoration: BoxDecoration(
-                                            color: AppColors.primary,
-                                            shape: BoxShape.circle,
-                                            boxShadow: [
-                                              BoxShadow(
-                                                color: AppColors.primary.withValues(alpha: 0.3),
-                                                blurRadius: 10,
-                                                offset: const Offset(0, 4),
-                                              )
-                                            ],
-                                          ),
-                                          child: const Icon(CupertinoIcons.add, color: AppColors.textDark, size: 20),
+                              const SizedBox(width: 16),
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(product.name, style: AppTypography.subtitle, maxLines: 2, overflow: TextOverflow.ellipsis),
+                                    const SizedBox(height: 4),
+                                    Text(
+                                      product.description,
+                                      style: AppTypography.caption,
+                                      maxLines: 2,
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
+                                    const SizedBox(height: 8),
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(
+                                          '${product.price}đ',
+                                          style: AppTypography.subtitle.copyWith(color: AppColors.tertiary),
                                         ),
-                                      ),
-                                    ],
-                                  ),
-                                ],
+                                        // Nút [+] thêm vào giỏ hàng
+                                        GestureDetector(
+                                          onTap: () {
+                                            context.read<CartCubit>().addProduct(product);
+                                            ScaffoldMessenger.of(context).showSnackBar(
+                                              SnackBar(
+                                                content: Text('Đã thêm ${product.name} vào giỏ', style: const TextStyle(color: AppColors.textDark)),
+                                                backgroundColor: AppColors.primary,
+                                                behavior: SnackBarBehavior.floating,
+                                                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(999)),
+                                                duration: const Duration(seconds: 1),
+                                              ),
+                                            );
+                                          },
+                                          child: Container(
+                                            padding: const EdgeInsets.all(8),
+                                            decoration: BoxDecoration(
+                                              color: AppColors.primary,
+                                              shape: BoxShape.circle,
+                                              boxShadow: [
+                                                BoxShadow(
+                                                  color: AppColors.primary.withValues(alpha: 0.3),
+                                                  blurRadius: 10,
+                                                  offset: const Offset(0, 4),
+                                                )
+                                              ],
+                                            ),
+                                            child: const Icon(CupertinoIcons.add, color: AppColors.textDark, size: 20),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                       );
                     },
