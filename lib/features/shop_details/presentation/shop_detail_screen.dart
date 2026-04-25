@@ -63,7 +63,7 @@ class _ShopDetailScreenState extends State<ShopDetailScreen> {
                     ),
                   ),
                 ),
-
+                
                 // 2. Shop Info & Group Order
                 SliverToBoxAdapter(
                   child: Container(
@@ -76,7 +76,7 @@ class _ShopDetailScreenState extends State<ShopDetailScreen> {
                     ),
                     transform: Matrix4.translationValues(0, -30, 0),
                     child: Padding(
-                      padding: const EdgeInsets.all(24.0),
+                      padding: const EdgeInsets.only(top: 36.0, left: 24.0, right: 24.0, bottom: 24.0),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -100,10 +100,45 @@ class _ShopDetailScreenState extends State<ShopDetailScreen> {
                                         ),
                                       ],
                                     ),
+                                    const SizedBox(height: 8),
+                                    Row(
+                                      children: [
+                                        Container(
+                                          width: 8,
+                                          height: 8,
+                                          decoration: BoxDecoration(
+                                            color: shop.isOpen ? Colors.greenAccent : Colors.redAccent,
+                                            shape: BoxShape.circle,
+                                          ),
+                                        ),
+                                        const SizedBox(width: 6),
+                                        Text(
+                                          shop.isOpen ? 'Đang mở cửa' : 'Đã đóng cửa',
+                                          style: AppTypography.bodySecondary.copyWith(
+                                            color: shop.isOpen ? Colors.greenAccent : Colors.redAccent,
+                                            fontWeight: FontWeight.w600,
+                                          ),
+                                        ),
+                                        const SizedBox(width: 12),
+                                        const Icon(CupertinoIcons.clock, color: AppColors.textSecondary, size: 16),
+                                        const SizedBox(width: 4),
+                                        Text(
+                                          shop.openingHours,
+                                          style: AppTypography.bodySecondary,
+                                        ),
+                                      ],
+                                    ),
+                                    const SizedBox(height: 12),
+                                    Text(
+                                      shop.description,
+                                      style: AppTypography.bodySecondary.copyWith(height: 1.5),
+                                      maxLines: 2,
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
                                   ],
                                 ),
                               ),
-                              // Nút Group Order phát sáng
+                              // Nút Vị Trí phát sáng
                               Container(
                                 decoration: BoxDecoration(
                                   color: AppColors.surfaceContainerHigh,
@@ -117,14 +152,16 @@ class _ShopDetailScreenState extends State<ShopDetailScreen> {
                                   ],
                                 ),
                                 child: IconButton(
-                                  icon: const Icon(CupertinoIcons.person_3_fill, color: AppColors.primary),
-                                  onPressed: () {},
+                                  icon: const Icon(CupertinoIcons.location_fill, color: AppColors.primary),
+                                  onPressed: () {
+                                    context.go('/orders');
+                                  },
                                 ),
                               ),
                             ],
                           ),
                           const SizedBox(height: 32),
-                          const Text('Thực Đơn Của Shop', style: AppTypography.h3),
+                          const Text('Thực Đơn Của Shop:', style: AppTypography.h3),
                         ],
                       ),
                     ),

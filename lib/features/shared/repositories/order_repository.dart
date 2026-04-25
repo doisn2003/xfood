@@ -21,4 +21,14 @@ class OrderRepository {
       return null;
     }
   }
+
+  Future<void> updateOrderStatus(String orderId, OrderStatus status) async {
+    await Future.delayed(const Duration(milliseconds: Env.mockDelayMs ~/ 2));
+    MockDatabase.instance.updateOrderStatus(orderId, status);
+  }
+
+  Future<void> removeOrder(String orderId) async {
+    await Future.delayed(const Duration(milliseconds: Env.mockDelayMs ~/ 2));
+    MockDatabase.instance.removeOrder(orderId);
+  }
 }
