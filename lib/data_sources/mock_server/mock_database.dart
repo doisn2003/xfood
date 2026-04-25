@@ -21,9 +21,9 @@ class MockDatabase {
 
   // --- MOCK CATEGORIES ---
   final List<CategoryModel> categories = [
-    const CategoryModel(id: 'c_1', name: 'Bún/Phở', iconUrl: 'ramen_dining'),
-    const CategoryModel(id: 'c_2', name: 'Ăn vặt', iconUrl: 'fastfood'),
-    const CategoryModel(id: 'c_3', name: 'Đồ uống', iconUrl: 'local_drink'),
+    const CategoryModel(id: 'c_1', name: 'Bún/Phở', iconUrl: '🍜'),
+    const CategoryModel(id: 'c_2', name: 'Ăn vặt', iconUrl: '🍟'),
+    const CategoryModel(id: 'c_3', name: 'Đồ uống', iconUrl: '🧋'),
   ];
 
   // --- MOCK SHOPS ---

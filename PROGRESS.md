@@ -28,8 +28,25 @@
 
 ---
 
-## Next Steps (Phase 3)
-- Lên kế hoạch cho **Phase 3: Khám phá & Trải nghiệm Gamification (Cho Role Người Mua)**.
-- Xây dựng Widget "Vòng quay may mắn" (Gamification).
-- Hoàn thiện giao diện Trang chủ (`HomeScreen`) với Banner Slider, Danh mục ngang (Categories Horizontal List), và Danh sách quán ăn.
-- Thiết kế giao diện Chi tiết quán ăn, phân loại món ăn, và làm UI giỏ hàng Mini thả nổi.
+## Completed: Phase 3 - Khám phá & Trải nghiệm Gamification (Người Mua) (2026-04-25)
+- **Kiến trúc Data & BLoC (Frontend-Mock Rule):**
+  - Xây dựng các Repository (`shop_repository`, `product_repository`, `user_repository`, `category_repository`) mô phỏng API delay với `Future.delayed`.
+  - Triển khai `HomeCubit`, `ShopDetailCubit`, và `CartCubit` để quản lý luồng dữ liệu mượt mà, tách biệt logic và UI hoàn toàn.
+- **UI Trang Chủ (Home):**
+  - Áp dụng triệt để Design System "Electric Marshmallow" / "Neon Mochi" (Bảng màu mới, bo góc siêu tròn, Ambient Glow).
+  - Thanh tiến trình "Thử thách Cú Đêm" bắt mắt.
+  - Category cuộn ngang và danh sách "Late Night Heroes" hiển thị thẻ mềm mại không đường viền.
+- **UI Chi tiết quán (Shop Detail):**
+  - Giao diện Header ảnh cover nổi bật.
+  - Nút thêm vào giỏ hàng (`+`) mini phát sáng, tự động cập nhật số lượng xuống Bottom Modal.
+- **UI Giỏ hàng (Cart):**
+  - Màn hình trượt mềm mại liệt kê món ăn.
+  - Tích hợp Tùy chọn "Đi nhẹ, nói khẽ" (Giao không bấm chuông).
+  - Nút "Đặt món ngay" ở dạng modal bottom trượt lên với Dialog thành công dễ thương.
+
+---
+
+## Next Steps (Phase 4)
+- Lên kế hoạch cho **Phase 4: Trải nghiệm WOW - Tracking Map & Tương tác xã hội**.
+- Triển khai Map Live Tracking (Giả lập bằng Map widget với hiệu ứng lướt mượt mà của Shipper).
+- Thêm các hiệu ứng Particle/Confetti (Pháo giấy) khi đơn hàng giao thành công.

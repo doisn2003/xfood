@@ -67,6 +67,11 @@ class MainLayoutScreen extends StatelessWidget {
                   label: 'Đơn Hàng',
                 ),
                 BottomNavigationBarItem(
+                  icon: Icon(CupertinoIcons.cart),
+                  activeIcon: Icon(CupertinoIcons.cart_fill),
+                  label: 'Giỏ Hàng',
+                ),
+                BottomNavigationBarItem(
                   icon: Icon(CupertinoIcons.person),
                   activeIcon: Icon(CupertinoIcons.person_solid),
                   label: 'Tôi',

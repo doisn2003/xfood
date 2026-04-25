@@ -4,61 +4,8 @@ import 'package:xfood/core/theme/app_typography.dart';
 
 class AppTheme {
   static ThemeData get lightTheme {
-    return ThemeData(
-      brightness: Brightness.light,
-      primaryColor: AppColors.primary,
-      scaffoldBackgroundColor: AppColors.backgroundLight,
-      colorScheme: const ColorScheme.light(
-        primary: AppColors.primary,
-        secondary: AppColors.secondary,
-        tertiary: AppColors.tertiary,
-        surface: AppColors.surfaceLight,
-        error: AppColors.error,
-      ),
-      fontFamily: AppTypography.bodyFontFamily,
-      appBarTheme: const AppBarTheme(
-        backgroundColor: AppColors.surfaceLight,
-        elevation: 0,
-        centerTitle: true,
-        iconTheme: IconThemeData(color: AppColors.textDark),
-        titleTextStyle: AppTypography.h3,
-      ),
-      elevatedButtonTheme: ElevatedButtonThemeData(
-        style: ElevatedButton.styleFrom(
-          backgroundColor: AppColors.primary,
-          foregroundColor: AppColors.textDark,
-          textStyle: AppTypography.button,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(9999), // ROUND_FULL
-          ),
-          elevation: 0, // Ambient glows used instead of elevation
-        ),
-      ),
-      cardTheme: CardThemeData(
-        color: AppColors.surfaceLight,
-        elevation: 0,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(48), // xl radius
-        ),
-      ),
-      inputDecorationTheme: InputDecorationTheme(
-        filled: true,
-        fillColor: Colors.grey[100],
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(48),
-          borderSide: BorderSide.none,
-        ),
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(48),
-          borderSide: BorderSide.none,
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(48),
-          borderSide: const BorderSide(color: AppColors.primary, width: 2),
-        ),
-        contentPadding: const EdgeInsets.symmetric(horizontal: 24, vertical: 18),
-      ),
-    );
+    // Ép buộc dùng Dark Mode (Neon Mochi) cho cả Light Theme
+    return darkTheme;
   }
 
   static ThemeData get darkTheme {
