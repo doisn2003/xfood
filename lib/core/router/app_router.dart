@@ -7,6 +7,7 @@ import 'package:xfood/features/cart/presentation/cart_screen.dart';
 import 'package:xfood/features/profile/presentation/profile_screen.dart';
 import 'package:xfood/features/shop_dashboard/presentation/shop_dashboard_screen.dart';
 import 'package:xfood/features/shop_details/presentation/shop_detail_screen.dart';
+import 'package:xfood/features/product_detail/presentation/product_detail_screen.dart';
 import 'package:xfood/features/user_home/presentation/home_screen.dart';
 
 final GlobalKey<NavigatorState> _rootNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'root');
@@ -88,7 +89,15 @@ final GoRouter appRouter = GoRouter(
       ],
     ),
     
-    // Shop Routes (Outside of Main Layout)
+    // Full-screen routes (outside tab shell)
+    GoRoute(
+      path: '/product_detail/:productId',
+      parentNavigatorKey: _rootNavigatorKey,
+      builder: (context, state) {
+        final productId = state.pathParameters['productId']!;
+        return ProductDetailScreen(productId: productId);
+      },
+    ),
     GoRoute(
       path: '/shop_dashboard',
       parentNavigatorKey: _rootNavigatorKey,

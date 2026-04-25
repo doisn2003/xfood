@@ -130,13 +130,14 @@ class MockDatabase {
     ),
   ];
 
-  // --- MOCK VOUCHERS ---
+  // --- MOCK VOUCHERS (Mutable for in-memory state) ---
   final List<VoucherModel> vouchers = [
     const VoucherModel(
       id: 'v_1',
       code: 'DEMKHUYA',
       description: 'Giảm 20k cho đơn từ 100k',
       discountAmount: 20000,
+      minOrderAmount: 100000,
     ),
     const VoucherModel(
       id: 'v_2',
@@ -145,10 +146,50 @@ class MockDatabase {
       discountAmount: 15000,
       isFreeship: true,
     ),
+    const VoucherModel(
+      id: 'v_3',
+      code: 'CU30K',
+      description: 'Giảm 30k cho đơn từ 150k',
+      discountAmount: 30000,
+      minOrderAmount: 150000,
+    ),
+    const VoucherModel(
+      id: 'v_4',
+      code: 'NEWBIE10',
+      description: 'Giảm 10k cho tất cả đơn',
+      discountAmount: 10000,
+    ),
+    const VoucherModel(
+      id: 'v_5',
+      code: 'MIDNIGHT50',
+      description: 'Giảm 50k cho đơn từ 200k',
+      discountAmount: 50000,
+      minOrderAmount: 200000,
+    ),
+    const VoucherModel(
+      id: 'v_6',
+      code: 'FREESHIP2',
+      description: 'Miễn phí giao hàng 20k',
+      discountAmount: 20000,
+      isFreeship: true,
+    ),
   ];
 
   // --- IN-MEMORY ORDERS STATE ---
   final List<OrderModel> orders = [];
+
+  // Helper: Mark voucher as used
+  void useVoucher(String voucherId) {
+    final index = vouchers.indexWhere((v) => v.id == voucherId);
+    if (index >= 0) {
+      vouchers[index] = vouchers[index].copyWith(isUsed: true);
+    }
+  }
+
+  // Helper: Add voucher (reward from lucky wheel)
+  void addVoucher(VoucherModel voucher) {
+    vouchers.add(voucher);
+  }
 
   // Helper function to simulate adding an order
   void placeOrder(OrderModel order) {

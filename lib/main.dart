@@ -6,7 +6,9 @@ import 'package:xfood/features/shared/repositories/category_repository.dart';
 import 'package:xfood/features/shared/repositories/product_repository.dart';
 import 'package:xfood/features/shared/repositories/shop_repository.dart';
 import 'package:xfood/features/shared/repositories/user_repository.dart';
+import 'package:xfood/features/shared/repositories/voucher_repository.dart';
 import 'package:xfood/features/cart/presentation/bloc/cart_cubit.dart';
+import 'package:xfood/features/offers/presentation/bloc/offers_cubit.dart';
 import 'package:xfood/features/shop_details/presentation/bloc/shop_detail_cubit.dart';
 import 'package:xfood/features/user_home/presentation/bloc/home_cubit.dart';
 
@@ -25,6 +27,7 @@ class XfoodApp extends StatelessWidget {
         RepositoryProvider(create: (_) => CategoryRepository()),
         RepositoryProvider(create: (_) => ShopRepository()),
         RepositoryProvider(create: (_) => ProductRepository()),
+        RepositoryProvider(create: (_) => VoucherRepository()),
       ],
       child: MultiBlocProvider(
         providers: [
@@ -44,6 +47,13 @@ class XfoodApp extends StatelessWidget {
               shopRepository: context.read<ShopRepository>(),
               productRepository: context.read<ProductRepository>(),
             ),
+          ),
+          BlocProvider(
+            create: (context) => OffersCubit(
+              voucherRepository: context.read<VoucherRepository>(),
+              productRepository: context.read<ProductRepository>(),
+              shopRepository: context.read<ShopRepository>(),
+            )..loadOffers(),
           ),
         ],
         child: MaterialApp.router(
