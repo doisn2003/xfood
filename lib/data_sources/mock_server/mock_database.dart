@@ -87,7 +87,7 @@ class MockDatabase {
       id: 'p_1',
       shopId: 's_1',
       categoryId: 'c_4',
-      name: 'Mì Cay Hải Sản Cấp 7',
+      name: 'Mì Cay Hải Sản 7 Cấp',
       description: 'Cay xé lưỡi, tỉnh ngủ ngay lập tức.',
       imageUrl: 'assets/images/mock/product_1.png',
       price: 55000,
@@ -189,6 +189,17 @@ class MockDatabase {
   // Helper: Add voucher (reward from lucky wheel)
   void addVoucher(VoucherModel voucher) {
     vouchers.add(voucher);
+  }
+
+  // Helper: Clear all vouchers from lucky wheel and reset used status
+  void clearRewardVouchers() {
+    // 1. Remove vouchers added by wheel (ID starts with v_reward_)
+    vouchers.removeWhere((v) => v.id.startsWith('v_reward_') || v.id.startsWith('v_bonus_'));
+    
+    // 2. Reset isUsed status for remaining original vouchers
+    for (int i = 0; i < vouchers.length; i++) {
+      vouchers[i] = vouchers[i].copyWith(isUsed: false);
+    }
   }
 
   // Helper function to simulate adding an order

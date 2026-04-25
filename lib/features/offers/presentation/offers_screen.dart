@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:xfood/core/theme/app_colors.dart';
 import 'package:xfood/core/theme/app_typography.dart';
+import 'package:xfood/data_sources/mock_server/mock_database.dart';
 import 'package:xfood/features/offers/presentation/bloc/offers_cubit.dart';
 import 'package:xfood/features/offers/presentation/widgets/lucky_wheel_widget.dart';
 import 'package:xfood/features/offers/presentation/widgets/voucher_list_sheet.dart';
@@ -42,12 +43,32 @@ class OffersScreen extends StatelessWidget {
                   SliverToBoxAdapter(
                     child: Padding(
                       padding: const EdgeInsets.fromLTRB(24, 24, 24, 16),
-                      child: Text(
-                        'Ưu Đãi Khuya 🌙',
-                        style: AppTypography.h1.copyWith(
-                          color: AppColors.primary,
-                          fontSize: 32,
-                        ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            'Ưu Đãi Khuya 🌙',
+                            style: AppTypography.h1.copyWith(
+                              color: AppColors.primary,
+                              fontSize: 32,
+                            ),
+                          ),
+                          IconButton(
+                            icon: const Icon(CupertinoIcons.refresh_thick, color: AppColors.textSecondary),
+                            onPressed: () {
+                              MockDatabase.instance.clearRewardVouchers();
+                              context.read<OffersCubit>().loadOffers();
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: const Text('Đã làm mới danh sách! ✨', style: TextStyle(color: AppColors.textDark)),
+                                  backgroundColor: AppColors.primary,
+                                  behavior: SnackBarBehavior.floating,
+                                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(999)),
+                                ),
+                              );
+                            },
+                          ),
+                        ],
                       ),
                     ),
                   ),
