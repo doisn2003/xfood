@@ -127,51 +127,55 @@ class _ProductDetailView extends StatelessWidget {
                               const SizedBox(height: 16),
 
                               // Shop info row
-                              Container(
-                                padding: const EdgeInsets.all(16),
-                                decoration: BoxDecoration(
-                                  color: AppColors.surfaceContainerHigh,
-                                  borderRadius: BorderRadius.circular(24),
-                                ),
-                                child: Row(
-                                  children: [
-                                    ClipRRect(
-                                      borderRadius: BorderRadius.circular(16),
-                                      child: Image.asset(
-                                        shop.imageUrl,
-                                        width: 48,
-                                        height: 48,
-                                        fit: BoxFit.cover,
-                                        errorBuilder: (_, __, ___) => Container(
+                              GestureDetector(
+                                onTap: () => context.push('/home/shop_details/${shop.id}'),
+                                child: Container(
+                                  padding: const EdgeInsets.all(16),
+                                  decoration: BoxDecoration(
+                                    color: AppColors.surfaceContainerHigh,
+                                    borderRadius: BorderRadius.circular(24),
+                                  ),
+                                  child: Row(
+                                    children: [
+                                      ClipRRect(
+                                        borderRadius: BorderRadius.circular(16),
+                                        child: Image.asset(
+                                          shop.imageUrl,
                                           width: 48,
                                           height: 48,
-                                          color: AppColors.surfaceContainerLow,
-                                          child: const Icon(Icons.store, color: AppColors.textSecondary),
+                                          fit: BoxFit.cover,
+                                          errorBuilder: (_, __, ___) => Container(
+                                            width: 48,
+                                            height: 48,
+                                            color: AppColors.surfaceContainerLow,
+                                            child: const Icon(Icons.store, color: AppColors.textSecondary),
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                    const SizedBox(width: 12),
-                                    Expanded(
-                                      child: Column(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                        children: [
-                                          Text(shop.name, style: AppTypography.subtitle),
-                                          const SizedBox(height: 4),
-                                          Row(
-                                            children: [
-                                              const Icon(Icons.star_rounded, color: AppColors.secondary, size: 16),
-                                              const SizedBox(width: 4),
-                                              Text(
-                                                '${shop.rating} • ${shop.address}',
-                                                style: AppTypography.caption,
-                                                overflow: TextOverflow.ellipsis,
-                                              ),
-                                            ],
-                                          ),
-                                        ],
+                                      const SizedBox(width: 12),
+                                      Expanded(
+                                        child: Column(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: [
+                                            Text(shop.name, style: AppTypography.subtitle),
+                                            const SizedBox(height: 4),
+                                            Row(
+                                              children: [
+                                                const Icon(Icons.star_rounded, color: AppColors.secondary, size: 16),
+                                                const SizedBox(width: 4),
+                                                Text(
+                                                  '${shop.rating} • ${shop.address}',
+                                                  style: AppTypography.caption,
+                                                  overflow: TextOverflow.ellipsis,
+                                                ),
+                                              ],
+                                            ),
+                                          ],
+                                        ),
                                       ),
-                                    ),
-                                  ],
+                                      const Icon(CupertinoIcons.chevron_right, color: AppColors.textSecondary, size: 16),
+                                    ],
+                                  ),
                                 ),
                               ),
                               const SizedBox(height: 24),

@@ -124,7 +124,7 @@ class _ShopDetailScreenState extends State<ShopDetailScreen> {
                             ],
                           ),
                           const SizedBox(height: 32),
-                          const Text('Thực Đơn (Kéo thả vào mồm)', style: AppTypography.h3),
+                          const Text('Thực Đơn Của Shop', style: AppTypography.h3),
                         ],
                       ),
                     ),

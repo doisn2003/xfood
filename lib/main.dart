@@ -3,11 +3,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:xfood/core/router/app_router.dart';
 import 'package:xfood/core/theme/app_theme.dart';
 import 'package:xfood/features/shared/repositories/category_repository.dart';
+import 'package:xfood/features/shared/repositories/order_repository.dart';
 import 'package:xfood/features/shared/repositories/product_repository.dart';
 import 'package:xfood/features/shared/repositories/shop_repository.dart';
 import 'package:xfood/features/shared/repositories/user_repository.dart';
 import 'package:xfood/features/shared/repositories/voucher_repository.dart';
 import 'package:xfood/features/cart/presentation/bloc/cart_cubit.dart';
+import 'package:xfood/features/cart/presentation/bloc/checkout_cubit.dart';
 import 'package:xfood/features/offers/presentation/bloc/offers_cubit.dart';
 import 'package:xfood/features/shop_details/presentation/bloc/shop_detail_cubit.dart';
 import 'package:xfood/features/user_home/presentation/bloc/home_cubit.dart';
@@ -28,6 +30,7 @@ class XfoodApp extends StatelessWidget {
         RepositoryProvider(create: (_) => ShopRepository()),
         RepositoryProvider(create: (_) => ProductRepository()),
         RepositoryProvider(create: (_) => VoucherRepository()),
+        RepositoryProvider(create: (_) => OrderRepository()),
       ],
       child: MultiBlocProvider(
         providers: [
@@ -54,6 +57,12 @@ class XfoodApp extends StatelessWidget {
               productRepository: context.read<ProductRepository>(),
               shopRepository: context.read<ShopRepository>(),
             )..loadOffers(),
+          ),
+          BlocProvider(
+            create: (context) => CheckoutCubit(
+              orderRepository: context.read<OrderRepository>(),
+              voucherRepository: context.read<VoucherRepository>(),
+            ),
           ),
         ],
         child: MaterialApp.router(

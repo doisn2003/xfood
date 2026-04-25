@@ -55,7 +55,23 @@ class CartCubit extends Cubit<CartState> {
     emit(state.copyWith(selectedVoucher: voucher));
   }
 
+  void removeVoucher() {
+    emit(state.copyWithClearVoucher());
+  }
+
+  void setDeliveryAddress(String address) {
+    emit(state.copyWith(deliveryAddress: address));
+  }
+
+  void setDistrict(String district) {
+    emit(state.copyWith(selectedDistrict: district));
+  }
+
   void toggleQuietDelivery(bool value) {
     emit(state.copyWith(quietDelivery: value));
+  }
+
+  void clearCart() {
+    emit(const CartState());
   }
 }
