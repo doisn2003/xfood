@@ -25,6 +25,7 @@ class MockDatabase {
     const CategoryModel(id: 'c_4', name: 'Mỳ', iconUrl: '🍝'),
     const CategoryModel(id: 'c_2', name: 'Ăn vặt', iconUrl: '🍟'),
     const CategoryModel(id: 'c_3', name: 'Đồ uống', iconUrl: '🧋'),
+    const CategoryModel(id: 'c_5', name: 'Cơm', iconUrl: '🍚'),
   ];
 
   // --- MOCK SHOPS (with real Hanoi coordinates) ---
@@ -99,6 +100,20 @@ class MockDatabase {
       description: 'Sinh tố trái cây tươi nguyên chất 100%, không pha siro, tốt cho sức khỏe.',
       openingHours: '17:00 - 02:00',
     ),
+    const ShopModel(
+      id: 's_6',
+      name: 'Cơm rang Lò Đúc',
+      address: '127 Lò Đúc',
+      imageUrl: 'assets/images/mock/com_rang_lo_duc_shop.png',
+      isOpen: true,
+      rating: 4.6,
+      baseShippingFee: 15000,
+      feePerKm: 4000,
+      latitude: 21.0145,
+      longitude: 105.8562,
+      description: 'Cơm rang lâu đời, hạt cơm săn chắc, đậm đà, thơm lừng.',
+      openingHours: '10:00 - 23:00',
+    ),
   ];
 
   // --- MOCK PRODUCTS ---
@@ -147,6 +162,33 @@ class MockDatabase {
       description: 'Vitamin tươi mát, chua ngọt hòa quyện, giải nhiệt siêu tốc.',
       imageUrl: 'assets/images/mock/banner_sinh_to.png',
       price: 45000,
+    ),
+    const ProductModel(
+      id: 'p_6',
+      shopId: 's_6',
+      categoryId: 'c_5',
+      name: 'Cơm rang thập cẩm',
+      description: 'Cơm rang dẻo thơm cùng lạp xưởng, trứng, rau củ và tôm khô.',
+      imageUrl: 'assets/images/mock/com_rang_thap_cam.png',
+      price: 45000,
+    ),
+    const ProductModel(
+      id: 'p_7',
+      shopId: 's_6',
+      categoryId: 'c_5',
+      name: 'Cơm rang dưa chua thịt bò',
+      description: 'Cơm rang dưa chua thịt bò đậm vị, chua thanh chống ngán.',
+      imageUrl: 'assets/images/mock/com_rang_dua_chua_thit_bo.png',
+      price: 55000,
+    ),
+    const ProductModel(
+      id: 'p_8',
+      shopId: 's_6',
+      categoryId: 'c_5',
+      name: 'Cơm rang hải sản',
+      description: 'Cơm rang cùng mực, tôm tươi ngon ngập tràn.',
+      imageUrl: 'assets/images/mock/com_rang_hai_san.png',
+      price: 65000,
     ),
   ];
 
