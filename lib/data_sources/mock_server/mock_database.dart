@@ -190,6 +190,33 @@ class MockDatabase {
       imageUrl: 'assets/images/mock/com_rang_hai_san.png',
       price: 65000,
     ),
+    const ProductModel(
+      id: 'p_9',
+      shopId: 's_1',
+      categoryId: 'c_4',
+      name: 'Mì Cay Bò 7 Cấp',
+      description: 'Thịt bò Mỹ mềm ngọt hòa quyện cùng nước dùng cay nồng đặc trưng.',
+      imageUrl: 'assets/images/mock/mi_cay_bo.png',
+      price: 59000,
+    ),
+    const ProductModel(
+      id: 'p_10',
+      shopId: 's_1',
+      categoryId: 'c_4',
+      name: 'Mì Cay Thập Cẩm 7 Cấp',
+      description: 'Sự kết hợp hoàn hảo giữa hải sản, bò và các loại topping đặc sắc.',
+      imageUrl: 'assets/images/mock/mi_cay_thap_cam.png',
+      price: 69000,
+    ),
+    const ProductModel(
+      id: 'p_11',
+      shopId: 's_1',
+      categoryId: 'c_4',
+      name: 'Mì Cay Gà 7 Cấp',
+      description: 'Thịt gà dai giòn, thấm vị cay tê tái, kích thích vị giác.',
+      imageUrl: 'assets/images/mock/mi_cay_ga.png',
+      price: 55000,
+    ),
   ];
 
   // --- MOCK VOUCHERS (Mutable for in-memory state) ---
