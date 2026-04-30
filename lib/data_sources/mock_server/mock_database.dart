@@ -5,6 +5,7 @@ import 'package:xfood/features/shared/models/shop_model.dart';
 import 'package:xfood/features/shared/models/user_model.dart';
 import 'package:xfood/features/shared/models/voucher_model.dart';
 import 'package:xfood/features/shared/models/category_model.dart';
+import 'package:xfood/features/shop_dashboard/models/revenue_model.dart';
 
 /// Singleton In-Memory Database to share state across User/Shop app
 class MockDatabase {
@@ -462,4 +463,27 @@ class MockDatabase {
   void deleteProduct(String productId) {
     products.removeWhere((p) => p.id == productId);
   }
+
+  // --- MOCK REVENUE DATA ---
+  final RevenueSummaryModel revenueSummary = const RevenueSummaryModel(
+    totalWeekly: 21428000,
+    totalMonthly: 92857000,
+    totalYearly: 1114285000,
+    completedOrders: 369,
+  );
+
+  final List<MonthlyRevenueData> monthlyRevenue = const [
+    MonthlyRevenueData(month: 1, revenue: 58000000, orderCount: 120),
+    MonthlyRevenueData(month: 2, revenue: 65000000, orderCount: 135),
+    MonthlyRevenueData(month: 3, revenue: 72000000, orderCount: 150),
+    MonthlyRevenueData(month: 4, revenue: 68000000, orderCount: 140),
+    MonthlyRevenueData(month: 5, revenue: 85000000, orderCount: 180),
+    MonthlyRevenueData(month: 6, revenue: 95000000, orderCount: 200),
+    MonthlyRevenueData(month: 7, revenue: 105000000, orderCount: 220),
+    MonthlyRevenueData(month: 8, revenue: 110000000, orderCount: 230),
+    MonthlyRevenueData(month: 9, revenue: 98000000, orderCount: 205),
+    MonthlyRevenueData(month: 10, revenue: 102000000, orderCount: 215),
+    MonthlyRevenueData(month: 11, revenue: 114000000, orderCount: 240),
+    MonthlyRevenueData(month: 12, revenue: 125000000, orderCount: 260),
+  ];
 }
