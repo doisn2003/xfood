@@ -111,10 +111,90 @@ class _OrderCard extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 12),
-          Text('Tổng cộng: ${CurrencyFormatter.format(order.totalAmount)}', style: AppTypography.body),
+          // Time
+          Row(
+            children: [
+              const Icon(Icons.access_time, size: 16, color: AppColors.textSecondary),
+              const SizedBox(width: 8),
+              Text(
+                '${order.createdAt.hour.toString().padLeft(2, '0')}:${order.createdAt.minute.toString().padLeft(2, '0')} - ${order.createdAt.day.toString().padLeft(2, '0')}/${order.createdAt.month.toString().padLeft(2, '0')}/${order.createdAt.year}',
+                style: AppTypography.caption,
+              ),
+            ],
+          ),
           const SizedBox(height: 8),
-          Text('Số món: ${order.items.length}', style: AppTypography.caption),
-          const Divider(color: AppColors.surfaceContainerHighest, height: 24),
+          // Address
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Icon(Icons.location_on_outlined, size: 16, color: AppColors.textSecondary),
+              const SizedBox(width: 8),
+              Expanded(
+                child: Text(
+                  order.deliveryAddress,
+                  style: AppTypography.caption,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 16),
+          // Items List
+          ...order.items.map((item) => Padding(
+                padding: const EdgeInsets.only(bottom: 12.0),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(8),
+                      child: Image.asset(
+                        item.productImageUrl,
+                        width: 48,
+                        height: 48,
+                        fit: BoxFit.cover,
+                        errorBuilder: (_, __, ___) => Container(
+                          width: 48,
+                          height: 48,
+                          color: AppColors.surfaceContainerHighest,
+                          child: const Icon(Icons.fastfood, color: AppColors.textSecondary),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(width: 12),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(item.productName, style: AppTypography.body.copyWith(fontWeight: FontWeight.w500)),
+                          const SizedBox(height: 4),
+                          Text(
+                            '${item.quantity} x ${CurrencyFormatter.format(item.price)}',
+                            style: AppTypography.caption,
+                          ),
+                        ],
+                      ),
+                    ),
+                    Text(
+                      CurrencyFormatter.format(item.subtotal),
+                      style: AppTypography.body.copyWith(fontWeight: FontWeight.bold),
+                    ),
+                  ],
+                ),
+              )),
+          const Divider(color: AppColors.surfaceContainerHighest, height: 16),
+          // Total Amount
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text('Tổng thanh toán', style: AppTypography.body.copyWith(color: AppColors.textSecondary)),
+              Text(
+                CurrencyFormatter.format(order.totalAmount),
+                style: AppTypography.h3.copyWith(color: AppColors.primary),
+              ),
+            ],
+          ),
+          const SizedBox(height: 16),
           _buildActionButtons(context),
         ],
       ),
