@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:xfood/core/theme/app_colors.dart';
 import 'package:xfood/features/shop_dashboard/presentation/bloc/shop_cubit.dart';
@@ -34,6 +35,26 @@ class _ShopDashboardView extends StatefulWidget {
 
 class _ShopDashboardViewState extends State<_ShopDashboardView> {
   int _currentIndex = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    // Read initial tab from URL query parameters safely
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted) {
+        final state = GoRouterState.of(context);
+        final tab = state.uri.queryParameters['tab'];
+        if (tab != null) {
+          final index = int.tryParse(tab);
+          if (index != null && index >= 0 && index < _tabs.length) {
+            setState(() {
+              _currentIndex = index;
+            });
+          }
+        }
+      }
+    });
+  }
 
   final List<Widget> _tabs = [
     const ShopHomeTab(),
