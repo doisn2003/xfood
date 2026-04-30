@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:xfood/features/shared/models/order_model.dart';
 import 'package:xfood/features/shared/models/product_model.dart';
 import 'package:xfood/features/shared/models/shop_model.dart';
+import 'package:xfood/features/shop_dashboard/models/revenue_model.dart';
 import 'package:xfood/features/shop_dashboard/repositories/shop_dashboard_repository.dart';
 
 part 'shop_state.dart';
@@ -24,12 +25,16 @@ class ShopCubit extends Cubit<ShopState> {
       final shopInfo = await _repository.getShopInfo();
       final products = await _repository.getShopProducts();
       final orders = await _repository.getShopOrders();
+      final revenueSummary = await _repository.getRevenueSummary();
+      final monthlyRevenue = await _repository.getMonthlyRevenue();
       
       emit(state.copyWith(
         status: ShopStatus.success,
         shopInfo: shopInfo,
         products: products,
         orders: orders,
+        revenueSummary: revenueSummary,
+        monthlyRevenue: monthlyRevenue,
       ));
 
       _listenToOrders();

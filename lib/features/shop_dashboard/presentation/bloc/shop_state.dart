@@ -7,6 +7,8 @@ class ShopState extends Equatable {
   final ShopModel? shopInfo;
   final List<ProductModel> products;
   final List<OrderModel> orders;
+  final RevenueSummaryModel? revenueSummary;
+  final List<MonthlyRevenueData> monthlyRevenue;
   final String? errorMessage;
 
   const ShopState({
@@ -14,6 +16,8 @@ class ShopState extends Equatable {
     this.shopInfo,
     this.products = const [],
     this.orders = const [],
+    this.revenueSummary,
+    this.monthlyRevenue = const [],
     this.errorMessage,
   });
 
@@ -22,6 +26,8 @@ class ShopState extends Equatable {
     ShopModel? shopInfo,
     List<ProductModel>? products,
     List<OrderModel>? orders,
+    RevenueSummaryModel? revenueSummary,
+    List<MonthlyRevenueData>? monthlyRevenue,
     String? errorMessage,
   }) {
     return ShopState(
@@ -29,10 +35,12 @@ class ShopState extends Equatable {
       shopInfo: shopInfo ?? this.shopInfo,
       products: products ?? this.products,
       orders: orders ?? this.orders,
+      revenueSummary: revenueSummary ?? this.revenueSummary,
+      monthlyRevenue: monthlyRevenue ?? this.monthlyRevenue,
       errorMessage: errorMessage ?? this.errorMessage,
     );
   }
 
   @override
-  List<Object?> get props => [status, shopInfo, products, orders, errorMessage];
+  List<Object?> get props => [status, shopInfo, products, orders, revenueSummary, monthlyRevenue, errorMessage];
 }
