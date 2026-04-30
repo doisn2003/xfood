@@ -3,6 +3,7 @@ import 'package:xfood/data_sources/mock_server/mock_database.dart';
 import 'package:xfood/features/shared/models/order_model.dart';
 import 'package:xfood/features/shared/models/product_model.dart';
 import 'package:xfood/features/shared/models/shop_model.dart';
+import 'package:xfood/features/shop_dashboard/models/revenue_model.dart';
 
 class ShopDashboardRepository {
   final _db = MockDatabase.instance;
@@ -67,5 +68,17 @@ class ShopDashboardRepository {
   Future<void> deleteProduct(String productId) async {
     await Future.delayed(const Duration(milliseconds: 300));
     _db.deleteProduct(productId);
+  }
+
+  // Get revenue summary
+  Future<RevenueSummaryModel> getRevenueSummary() async {
+    await Future.delayed(const Duration(milliseconds: 400));
+    return _db.revenueSummary;
+  }
+
+  // Get monthly revenue data
+  Future<List<MonthlyRevenueData>> getMonthlyRevenue() async {
+    await Future.delayed(const Duration(milliseconds: 400));
+    return _db.monthlyRevenue;
   }
 }
