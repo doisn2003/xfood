@@ -80,6 +80,30 @@ class ShopCubit extends Cubit<ShopState> {
     } catch (e) {}
   }
 
+  Future<void> addProduct(ProductModel product) async {
+    try {
+      await _repository.addProduct(product);
+      final updatedProducts = List<ProductModel>.from(state.products)..add(product);
+      emit(state.copyWith(products: updatedProducts));
+    } catch (e) {}
+  }
+
+  Future<void> updateProduct(ProductModel product) async {
+    try {
+      await _repository.updateProduct(product);
+      final updatedProducts = state.products.map((p) => p.id == product.id ? product : p).toList();
+      emit(state.copyWith(products: updatedProducts));
+    } catch (e) {}
+  }
+
+  Future<void> deleteProduct(String productId) async {
+    try {
+      await _repository.deleteProduct(productId);
+      final updatedProducts = state.products.where((p) => p.id != productId).toList();
+      emit(state.copyWith(products: updatedProducts));
+    } catch (e) {}
+  }
+
   @override
   Future<void> close() {
     _ordersSubscription?.cancel();

@@ -16,36 +16,38 @@ class ShopHomeTab extends StatelessWidget {
         title: const Text('Đơn hàng hôm nay'),
         centerTitle: true,
       ),
-      body: BlocBuilder<ShopCubit, ShopState>(
-        builder: (context, state) {
-          if (state.status == ShopStatus.loading) {
-            return const Center(child: CircularProgressIndicator(color: AppColors.primary));
-          }
+      body: SafeArea(
+        child: BlocBuilder<ShopCubit, ShopState>(
+          builder: (context, state) {
+            if (state.status == ShopStatus.loading) {
+              return const Center(child: CircularProgressIndicator(color: AppColors.primary));
+            }
 
-          if (state.status == ShopStatus.error) {
-            return Center(child: Text(state.errorMessage ?? 'Có lỗi xảy ra', style: AppTypography.body));
-          }
+            if (state.status == ShopStatus.error) {
+              return Center(child: Text(state.errorMessage ?? 'Có lỗi xảy ra', style: AppTypography.body));
+            }
 
-          final orders = state.orders;
-          if (orders.isEmpty) {
-            return const Center(
-              child: Text('Chưa có đơn hàng nào', style: AppTypography.body),
+            final orders = state.orders;
+            if (orders.isEmpty) {
+              return const Center(
+                child: Text('Chưa có đơn hàng nào', style: AppTypography.body),
+              );
+            }
+
+            // Sort orders by createdAt descending
+            final sortedOrders = List<OrderModel>.from(orders)
+              ..sort((a, b) => b.createdAt.compareTo(a.createdAt));
+
+            return ListView.separated(
+              padding: const EdgeInsets.all(16),
+              itemCount: sortedOrders.length,
+              separatorBuilder: (_, __) => const SizedBox(height: 16),
+              itemBuilder: (context, index) {
+                return _OrderCard(order: sortedOrders[index]);
+              },
             );
-          }
-
-          // Sort orders by createdAt descending
-          final sortedOrders = List<OrderModel>.from(orders)
-            ..sort((a, b) => b.createdAt.compareTo(a.createdAt));
-
-          return ListView.separated(
-            padding: const EdgeInsets.all(16),
-            itemCount: sortedOrders.length,
-            separatorBuilder: (_, __) => const SizedBox(height: 16),
-            itemBuilder: (context, index) {
-              return _OrderCard(order: sortedOrders[index]);
-            },
-          );
-        },
+          },
+        ),
       ),
     );
   }

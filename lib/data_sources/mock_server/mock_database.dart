@@ -444,4 +444,22 @@ class MockDatabase {
       shops[index] = updatedShop;
     }
   }
+
+  // Helper: Add product
+  void addProduct(ProductModel product) {
+    products.add(product);
+  }
+
+  // Helper: Update product
+  void updateProduct(ProductModel product) {
+    final index = products.indexWhere((p) => p.id == product.id);
+    if (index >= 0) {
+      products[index] = product;
+    }
+  }
+
+  // Helper: Delete product
+  void deleteProduct(String productId) {
+    products.removeWhere((p) => p.id == productId);
+  }
 }
