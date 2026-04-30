@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:xfood/features/shared/models/order_model.dart';
 import 'package:xfood/features/shared/models/product_model.dart';
 import 'package:xfood/features/shared/models/shop_model.dart';
@@ -355,7 +356,33 @@ class MockDatabase {
   ];
 
   // --- IN-MEMORY ORDERS STATE ---
-  final List<OrderModel> orders = [];
+  final List<OrderModel> orders = [
+    OrderModel(
+      id: 'o_mock_1',
+      userId: 'u_1',
+      shopId: 's_6',
+      shopName: 'Cơm rang Lò Đúc',
+      items: const [
+        OrderItemData(
+          productId: 'p_6',
+          productName: 'Cơm rang thập cẩm',
+          productImageUrl: 'assets/images/mock/com_rang_thap_cam.png',
+          price: 45000,
+          quantity: 2,
+        ),
+      ],
+      deliveryAddress: '123 Cầu Giấy, Hà Nội',
+      subtotal: 90000,
+      shippingFee: 15000,
+      totalAmount: 105000,
+      status: OrderStatus.pending,
+      createdAt: DateTime.now().subtract(const Duration(minutes: 5)),
+    ),
+  ];
+  
+  // Stream to listen to order updates
+  final StreamController<List<OrderModel>> _ordersController = StreamController<List<OrderModel>>.broadcast();
+  Stream<List<OrderModel>> get ordersStream => _ordersController.stream;
 
   // Helper: Mark voucher as used
   void useVoucher(String voucherId) {
@@ -384,11 +411,13 @@ class MockDatabase {
   // Helper function to simulate adding an order
   void placeOrder(OrderModel order) {
     orders.add(order);
+    _ordersController.add(List.from(orders));
   }
 
   // Helper: Remove a completed order
   void removeOrder(String orderId) {
     orders.removeWhere((o) => o.id == orderId);
+    _ordersController.add(List.from(orders));
   }
 
   // Helper: Update order status
@@ -396,6 +425,23 @@ class MockDatabase {
     final index = orders.indexWhere((o) => o.id == orderId);
     if (index >= 0) {
       orders[index] = orders[index].copyWith(status: status);
+      _ordersController.add(List.from(orders));
+    }
+  }
+
+  // Helper: Shop owner toggle product status
+  void toggleProductAvailability(String productId, bool isAvailable) {
+    final index = products.indexWhere((p) => p.id == productId);
+    if (index >= 0) {
+      products[index] = products[index].copyWith(isAvailable: isAvailable);
+    }
+  }
+
+  // Helper: Shop owner updates shop details
+  void updateShop(ShopModel updatedShop) {
+    final index = shops.indexWhere((s) => s.id == updatedShop.id);
+    if (index >= 0) {
+      shops[index] = updatedShop;
     }
   }
 }
