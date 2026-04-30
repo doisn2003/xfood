@@ -50,4 +50,22 @@ class ShopDashboardRepository {
     await Future.delayed(const Duration(milliseconds: 300));
     _db.toggleProductAvailability(productId, isAvailable);
   }
+
+  // Add a new product
+  Future<void> addProduct(ProductModel product) async {
+    await Future.delayed(const Duration(milliseconds: 300));
+    _db.addProduct(product);
+  }
+
+  // Update a product
+  Future<void> updateProduct(ProductModel product) async {
+    await Future.delayed(const Duration(milliseconds: 300));
+    _db.updateProduct(product);
+  }
+
+  // Delete a product
+  Future<void> deleteProduct(String productId) async {
+    await Future.delayed(const Duration(milliseconds: 300));
+    _db.deleteProduct(productId);
+  }
 }

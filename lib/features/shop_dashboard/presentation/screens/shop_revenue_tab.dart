@@ -16,47 +16,49 @@ class ShopRevenueTab extends StatelessWidget {
         title: const Text('Thống kê Doanh thu'),
         centerTitle: true,
       ),
-      body: BlocBuilder<ShopCubit, ShopState>(
-        builder: (context, state) {
-          if (state.status == ShopStatus.loading) {
-            return const Center(child: CircularProgressIndicator(color: AppColors.primary));
-          }
+      body: SafeArea(
+        child: BlocBuilder<ShopCubit, ShopState>(
+          builder: (context, state) {
+            if (state.status == ShopStatus.loading) {
+              return const Center(child: CircularProgressIndicator(color: AppColors.primary));
+            }
 
-          final completedOrders = state.orders.where((o) => o.status == OrderStatus.completed).toList();
-          final totalRevenue = completedOrders.fold<int>(0, (sum, o) => sum + o.totalAmount);
-          final pendingOrders = state.orders.where((o) => o.status == OrderStatus.pending || o.status == OrderStatus.preparing).toList();
+            final completedOrders = state.orders.where((o) => o.status == OrderStatus.completed).toList();
+            final totalRevenue = completedOrders.fold<int>(0, (sum, o) => sum + o.totalAmount);
+            final pendingOrders = state.orders.where((o) => o.status == OrderStatus.pending || o.status == OrderStatus.preparing).toList();
 
-          return SingleChildScrollView(
-            padding: const EdgeInsets.all(24),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                _buildStatCard('Tổng doanh thu', CurrencyFormatter.format(totalRevenue), AppColors.primary, Icons.monetization_on),
-                const SizedBox(height: 16),
-                Row(
-                  children: [
-                    Expanded(child: _buildStatCard('Đơn hoàn thành', '${completedOrders.length}', AppColors.success, Icons.check_circle)),
-                    const SizedBox(width: 16),
-                    Expanded(child: _buildStatCard('Đang xử lý', '${pendingOrders.length}', AppColors.warning, Icons.pending_actions)),
-                  ],
-                ),
-                const SizedBox(height: 32),
-                const Text('Biểu đồ Mock', style: AppTypography.h3),
-                const SizedBox(height: 16),
-                Container(
-                  height: 200,
-                  decoration: BoxDecoration(
-                    color: AppColors.surfaceContainerHigh,
-                    borderRadius: BorderRadius.circular(16),
+            return SingleChildScrollView(
+              padding: const EdgeInsets.all(24),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  _buildStatCard('Tổng doanh thu', CurrencyFormatter.format(totalRevenue), AppColors.primary, Icons.monetization_on),
+                  const SizedBox(height: 16),
+                  Row(
+                    children: [
+                      Expanded(child: _buildStatCard('Đơn hoàn thành', '${completedOrders.length}', AppColors.success, Icons.check_circle)),
+                      const SizedBox(width: 16),
+                      Expanded(child: _buildStatCard('Đang xử lý', '${pendingOrders.length}', AppColors.warning, Icons.pending_actions)),
+                    ],
                   ),
-                  child: const Center(
-                    child: Text('Đồ thị hiển thị ở phiên bản thật', style: AppTypography.caption),
-                  ),
-                )
-              ],
-            ),
-          );
-        },
+                  const SizedBox(height: 32),
+                  const Text('Biểu đồ Mock', style: AppTypography.h3),
+                  const SizedBox(height: 16),
+                  Container(
+                    height: 200,
+                    decoration: BoxDecoration(
+                      color: AppColors.surfaceContainerHigh,
+                      borderRadius: BorderRadius.circular(16),
+                    ),
+                    child: const Center(
+                      child: Text('Đồ thị hiển thị ở phiên bản thật', style: AppTypography.caption),
+                    ),
+                  )
+                ],
+              ),
+            );
+          },
+        ),
       ),
     );
   }
